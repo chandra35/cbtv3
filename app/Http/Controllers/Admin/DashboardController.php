@@ -45,6 +45,21 @@ class DashboardController extends Controller
             ->pluck('count', 'status')
             ->toArray();
 
+        // Status labels
+        $statusLabels = [
+            'not_started' => ['label' => 'Not Started', 'color' => '#6c757d'],
+            'in_progress' => ['label' => 'In Progress', 'color' => '#0dcaf0'],
+            'submitted' => ['label' => 'Submitted', 'color' => '#0d6efd'],
+            'graded' => ['label' => 'Graded', 'color' => '#198754'],
+            'completed' => ['label' => 'Completed', 'color' => '#ffc107'],
+        ];
+
+        // Exams by status
+        $examsByStatus = [];
+        foreach ($statusLabels as $status => $info) {
+            $examsByStatus[$status] = ExamParticipant::where('status', $status)->count();
+        }
+
         // Recent activities
         $recentActivities = CBTActivityLog::with('exam', 'user')
             ->latest()
@@ -87,7 +102,9 @@ class DashboardController extends Controller
             'statusStats',
             'recentActivities',
             'examsByType',
-            'topExams'
+            'topExams',
+            'statusLabels',
+            'examsByStatus'
         ));
     }
 }
