@@ -133,3 +133,4 @@ class Exam extends Model
             ->join('questions', 'exam_questions.question_id', '=', 'questions.id')
             ->value('total') ?? 0;
     }
+}
