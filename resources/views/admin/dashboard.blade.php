@@ -1,246 +1,233 @@
 @extends('layouts.admin')
+
 @section('title', 'Dashboard')
 @section('page-title', 'Dashboard')
-@section('page-subtitle', 'Welcome back! Here\'s your exam system overview')
+@section('page-subtitle', "Welcome back! Here's your exam system overview")
 
 @section('content')
-<div class="max-w-7xl mx-auto">
-    <!-- Statistics Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <!-- Total Exams -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <div class="flex justify-between items-start">
-                <div>
-                    <p class="text-gray-600 text-sm font-medium">Total Exams</p>
-                    <p class="text-3xl font-bold text-gray-900 mt-2">{{ $totalExams }}</p>
-                    <p class="text-xs text-gray-500 mt-1">{{ $publishedExams }} published</p>
-                </div>
-                <div class="p-3 bg-blue-100 rounded-lg">
-                    <i class="fas fa-file-alt text-2xl text-blue-500"></i>
-                </div>
+<!-- Statistics Cards Row -->
+<div class="row">
+    <!-- Total Exams -->
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>{{ $totalExams }}</h3>
+                <p>Total Exams</p>
             </div>
-        </div>
-
-        <!-- Active Exams -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <div class="flex justify-between items-start">
-                <div>
-                    <p class="text-gray-600 text-sm font-medium">Active Exams</p>
-                    <p class="text-3xl font-bold text-gray-900 mt-2">{{ $activeExams }}</p>
-                    <p class="text-xs text-gray-500 mt-1">Currently running</p>
-                </div>
-                <div class="p-3 bg-green-100 rounded-lg">
-                    <i class="fas fa-clock text-2xl text-green-500"></i>
-                </div>
+            <div class="icon">
+                <i class="fas fa-file-alt"></i>
             </div>
+            <a href="{{ route('admin.exams.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
+    </div>
 
-        <!-- Total Questions -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <div class="flex justify-between items-start">
-                <div>
-                    <p class="text-gray-600 text-sm font-medium">Total Questions</p>
-                    <p class="text-3xl font-bold text-gray-900 mt-2">{{ $totalQuestions }}</p>
-                    <p class="text-xs text-gray-500 mt-1">In system</p>
-                </div>
-                <div class="p-3 bg-purple-100 rounded-lg">
-                    <i class="fas fa-question-circle text-2xl text-purple-500"></i>
-                </div>
+    <!-- Active Exams -->
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3>{{ $activeExams }}</h3>
+                <p>Active Exams</p>
             </div>
+            <div class="icon">
+                <i class="fas fa-play-circle"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
+    </div>
 
-        <!-- Total Participants -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <div class="flex justify-between items-start">
-                <div>
-                    <p class="text-gray-600 text-sm font-medium">Total Participants</p>
-                    <p class="text-3xl font-bold text-gray-900 mt-2">{{ $totalParticipants }}</p>
-                    <p class="text-xs text-gray-500 mt-1">All time</p>
-                </div>
-                <div class="p-3 bg-yellow-100 rounded-lg">
-                    <i class="fas fa-users text-2xl text-yellow-500"></i>
+    <!-- Total Questions -->
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3>{{ $totalQuestions }}</h3>
+                <p>Total Questions</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-question-circle"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+
+    <!-- Total Participants -->
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-danger">
+            <div class="inner">
+                <h3>{{ $totalParticipants }}</h3>
+                <p>Total Participants</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+</div>
+
+<!-- Main Row -->
+<div class="row">
+    <!-- Exams by Type -->
+    <div class="col-lg-4">
+        <div class="card card-primary card-outline">
+            <div class="card-header">
+                <h5 class="card-title m-0">Exams by Type</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    @if (!empty($examsByType))
+                        @foreach ($examsByType as $type => $count)
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                <span>{{ ucfirst(str_replace('_', ' ', $type)) }}</span>
+                                <span class="badge badge-primary">{{ $count }}</span>
+                            </a>
+                        @endforeach
+                    @else
+                        <p class="text-muted text-center py-3">No data</p>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Exams by Type and Statistics -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-        <!-- Exams by Type -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                <i class="fas fa-chart-pie text-blue-500 mr-2"></i>
-                Exams by Type
-            </h3>
-            <div class="space-y-3">
-                @if(!empty($examsByType))
-                    @foreach($examsByType as $type => $count)
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-600">
-                            @if($type === 'test')
-                                <i class="fas fa-check-circle text-blue-500 mr-2"></i>Tests
-                            @elseif($type === 'quiz')
-                                <i class="fas fa-lightbulb text-purple-500 mr-2"></i>Quizzes
-                            @elseif($type === 'assignment')
-                                <i class="fas fa-tasks text-green-500 mr-2"></i>Assignments
-                            @else
-                                <i class="fas fa-graduation-cap text-red-500 mr-2"></i>Final Exams
-                            @endif
-                        </span>
-                        <span class="font-semibold text-gray-900">{{ $count }}</span>
-                    </div>
+    <!-- Exam Status -->
+    <div class="col-lg-4">
+        <div class="card card-success card-outline">
+            <div class="card-header">
+                <h5 class="card-title m-0">Exam Status</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    @foreach ($statusLabels as $status => $info)
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <span>{{ $info['label'] }}</span>
+                            <span class="badge" style="background-color: {{ $info['color'] }}">{{ $examsByStatus[$status] ?? 0 }}</span>
+                        </a>
                     @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="col-lg-4">
+        <div class="card card-warning card-outline">
+            <div class="card-header">
+                <h5 class="card-title m-0">Published vs Draft</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <span>Published Exams</span>
+                        <span class="badge badge-success">{{ $publishedExams }}</span>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <span>Draft Exams</span>
+                        <span class="badge badge-secondary">{{ $totalExams - $publishedExams }}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bottom Row -->
+<div class="row">
+    <!-- Top Exams -->
+    <div class="col-lg-6">
+        <div class="card card-info card-outline">
+            <div class="card-header">
+                <h5 class="card-title m-0">Top Exams</h5>
+            </div>
+            <div class="card-body p-0">
+                @if ($topExams->count() > 0)
+                    <table class="table table-sm table-striped">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>Exam Name</th>
+                                <th style="width: 15%">Participants</th>
+                                <th style="width: 15%">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($topExams as $exam)
+                                <tr>
+                                    <td>{{ Str::limit($exam->exam_name, 30) }}</td>
+                                    <td><span class="badge badge-info">{{ $exam->participants_count ?? 0 }}</span></td>
+                                    <td><small>{{ $exam->exam_type }}</small></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 @else
-                    <p class="text-sm text-gray-500">No exams yet</p>
+                    <p class="text-muted text-center py-3">No data</p>
                 @endif
             </div>
         </div>
+    </div>
 
-        <!-- Participant Status -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                <i class="fas fa-chart-bar text-green-500 mr-2"></i>
-                Participant Status
-            </h3>
-            <div class="space-y-3">
-                @php
-                    $statusLabels = [
-                        'not_started' => ['label' => 'Not Started', 'color' => 'gray'],
-                        'in_progress' => ['label' => 'In Progress', 'color' => 'blue'],
-                        'submitted' => ['label' => 'Submitted', 'color' => 'green'],
-                        'graded' => ['label' => 'Graded', 'color' => 'purple'],
-                    ];
-                @endphp
-                @foreach($statusLabels as $status => $info)
-                <div class="flex items-center justify-between">
-                    <span class="text-sm text-gray-600">{{ $info['label'] }}</span>
-                    <span class="font-semibold text-gray-900">{{ $statusStats[$status] ?? 0 }}</span>
-                </div>
-                @endforeach
+    <!-- Recent Exams -->
+    <div class="col-lg-6">
+        <div class="card card-secondary card-outline">
+            <div class="card-header">
+                <h5 class="card-title m-0">Recently Created</h5>
             </div>
-        </div>
-
-        <!-- Average Score -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                <i class="fas fa-star text-yellow-500 mr-2"></i>
-                Performance
-            </h3>
-            <div class="space-y-4">
-                <div>
-                    <p class="text-sm text-gray-600 mb-1">Average Score</p>
-                    <div class="flex items-baseline gap-2">
-                        <p class="text-3xl font-bold text-gray-900">{{ round($averageScore, 1) }}%</p>
-                        <span class="text-xs text-gray-500">System Average</span>
-                    </div>
-                    <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
-                        <div class="bg-gradient-to-r from-red-500 to-green-500 h-2 rounded-full" style="width: {{ $averageScore }}%"></div>
-                    </div>
-                </div>
+            <div class="card-body p-0">
+                @if ($recentExams->count() > 0)
+                    <ul class="list-group list-group-flush">
+                        @foreach ($recentExams as $exam)
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between">
+                                    <strong>{{ Str::limit($exam->exam_name, 30) }}</strong>
+                                    <small class="text-muted">{{ $exam->created_at->diffForHumans() }}</small>
+                                </div>
+                                <small class="text-muted">by {{ $exam->creator?->name }}</small>
+                            </li>
+                        @endforeach
+                    </ul>
+                @else
+                    <p class="text-muted text-center py-3">No data</p>
+                @endif
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Top Performing Exams and Recent Activity -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <!-- Top Exams -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                <i class="fas fa-trophy text-yellow-500 mr-2"></i>
-                Top Performing Exams
-            </h3>
-            @if($topExams->count() > 0)
-                <div class="space-y-3">
-                    @foreach($topExams as $index => $exam)
-                    <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition">
-                        <div class="flex items-center gap-3 flex-1">
-                            <span class="inline-block w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white flex items-center justify-center text-sm font-bold">
-                                {{ $index + 1 }}
-                            </span>
-                            <div class="flex-1">
-                                <a href="{{ route('admin.exams.show', $exam['id']) }}" class="text-sm font-medium text-gray-900 hover:text-blue-600">
-                                    {{ Str::limit($exam['name'], 40) }}
-                                </a>
-                                <p class="text-xs text-gray-500">{{ $exam['participants'] }} participants</p>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <p class="font-semibold text-gray-900">{{ $exam['avg_score'] }}%</p>
-                            <div class="w-16 bg-gray-200 rounded-full h-1 mt-1">
-                                <div class="bg-green-500 h-1 rounded-full" style="width: {{ $exam['avg_score'] }}%"></div>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            @else
-                <p class="text-sm text-gray-500">No exams available yet</p>
-            @endif
-        </div>
-
-        <!-- Recent Exams -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                <i class="fas fa-history text-blue-500 mr-2"></i>
-                Recent Exams
-            </h3>
-            @if($recentExams->count() > 0)
-                <div class="space-y-3">
-                    @foreach($recentExams as $exam)
-                    <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition border-l-4 {{ $exam->is_published ? 'border-green-500' : 'border-yellow-500' }}">
-                        <div class="flex-1">
-                            <a href="{{ route('admin.exams.show', $exam) }}" class="text-sm font-medium text-gray-900 hover:text-blue-600 block">
-                                {{ Str::limit($exam->exam_name, 40) }}
-                            </a>
-                            <p class="text-xs text-gray-500 mt-1">By {{ $exam->creator->name ?? 'Unknown' }}</p>
-                        </div>
-                        <span class="inline-block px-2 py-1 rounded-full text-xs font-medium {{ $exam->is_published ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">
-                            {{ $exam->is_published ? 'Published' : 'Draft' }}
-                        </span>
-                    </div>
-                    @endforeach
-                </div>
-            @else
-                <p class="text-sm text-gray-500">No exams created yet</p>
-            @endif
-        </div>
-    </div>
-
-    <!-- Recent Activity -->
-    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-            <i class="fas fa-list text-purple-500 mr-2"></i>
-            Recent Activity
-        </h3>
-        @if($recentActivities->count() > 0)
-            <div class="space-y-3 max-h-96 overflow-y-auto">
-                @foreach($recentActivities as $activity)
-                <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition border-l-2 border-gray-200">
-                    <div class="flex-1">
-                        <div class="flex items-center gap-3">
-                            <div class="w-2 h-2 rounded-full bg-blue-500"></div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-900">
-                                    {{ ucfirst(str_replace('_', ' ', $activity->action)) }}
-                                </p>
-                                <p class="text-xs text-gray-500 mt-1">
-                                    @if($activity->exam)
-                                        {{ $activity->exam->exam_name }}
-                                    @endif
-                                    @if($activity->user)
-                                        • {{ $activity->user->name }}
-                                    @endif
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <span class="text-xs text-gray-500">{{ $activity->created_at->diffForHumans() }}</span>
-                </div>
-                @endforeach
+<!-- Activity -->
+<div class="row">
+    <div class="col-12">
+        <div class="card card-primary card-outline">
+            <div class="card-header">
+                <h5 class="card-title m-0">Recent Activity</h5>
             </div>
-        @else
-            <p class="text-sm text-gray-500 text-center py-6">No recent activity</p>
-        @endif
+            <div class="card-body p-0">
+                @if ($recentActivities->count() > 0)
+                    <ul class="list-unstyled">
+                        @foreach ($recentActivities as $activity)
+                            <li class="list-item p-2 border-bottom">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1">
+                                            <span class="badge badge-info">{{ ucfirst(str_replace('_', ' ', $activity->action)) }}</span>
+                                        </h6>
+                                        <small class="text-muted">
+                                            @if ($activity->exam)
+                                                <i class="fas fa-file-alt"></i> {{ $activity->exam->exam_name }}
+                                            @endif
+                                            @if ($activity->user)
+                                                • <i class="fas fa-user"></i> {{ $activity->user->name }}
+                                            @endif
+                                        </small>
+                                    </div>
+                                    <small class="text-muted">{{ $activity->created_at->diffForHumans() }}</small>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                @else
+                    <p class="text-muted text-center py-3">No recent activity</p>
+                @endif
+            </div>
+        </div>
     </div>
 </div>
 @endsection
