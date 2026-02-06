@@ -47,6 +47,11 @@ class QuestionGroup extends Model
         return $this->hasOne(ExamQuestionPool::class);
     }
 
+    public function importJobs()
+    {
+        return $this->hasMany(ImportJob::class);
+    }
+
     // Methods
     public function getTotalQuestions()
     {
