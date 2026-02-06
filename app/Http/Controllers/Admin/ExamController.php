@@ -177,4 +177,13 @@ class ExamController extends Controller
 
         return view('admin.exams.results', compact('exam', 'participants'));
     }
+
+    /**
+     * Show mobile settings for exam
+     */
+    public function mobileSettings(Exam $exam)
+    {
+        $exam->load('mobileSettings');
+        return view('admin.exams.mobile-settings', compact('exam'));
+    }
 }
