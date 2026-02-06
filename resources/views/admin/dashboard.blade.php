@@ -225,6 +225,7 @@
                     </ul>
                 @else
                     <p class="text-muted text-center py-3">Tidak ada aktivitas terbaru</p>
-    </div>
-</div>
+                @endif
+            </div>
+        </div>
 @endsection
