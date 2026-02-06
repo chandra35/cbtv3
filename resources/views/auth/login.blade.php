@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - CBT Admin</title>
+    <title>Masuk - Admin CBT</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gradient-to-br from-blue-500 to-blue-700 min-h-screen flex items-center justify-center">
@@ -13,7 +13,7 @@
             <!-- Logo -->
             <div class="text-center mb-8">
                 <h1 class="text-3xl font-bold text-gray-900">CBT v3</h1>
-                <p class="text-gray-600 mt-2">Computer-Based Testing System</p>
+                <p class="text-gray-600 mt-2">Sistem Ujian Berbasis Komputer</p>
             </div>
 
             <!-- Alerts -->
@@ -39,7 +39,7 @@
                 <!-- Email -->
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
-                        Email Address
+                        Alamat Email
                     </label>
                     <input type="email" id="email" name="email" value="{{ old('email') }}"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -49,7 +49,7 @@
                 <!-- Password -->
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-700 mb-1">
-                        Password
+                        Kata Sandi
                     </label>
                     <input type="password" id="password" name="password"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -58,21 +58,21 @@
 
                 <!-- Submit -->
                 <button type="submit" class="w-full py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
-                    Login
+                    Masuk
                 </button>
             </form>
 
             <!-- Demo Credentials -->
             <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                <p class="text-sm text-gray-700 font-medium mb-2">📝 Demo Credentials:</p>
+                <p class="text-sm text-gray-700 font-medium mb-2">📝 Kredensial Demo:</p>
                 <p class="text-sm text-gray-600">Email: <code class="bg-white px-2 py-1 rounded">admin@cbt.local</code></p>
-                <p class="text-sm text-gray-600">Password: <code class="bg-white px-2 py-1 rounded">password123</code></p>
+                <p class="text-sm text-gray-600">Kata Sandi: <code class="bg-white px-2 py-1 rounded">password123</code></p>
             </div>
         </div>
 
         <!-- Footer -->
         <p class="text-center text-white text-sm mt-4">
-            CBT v3 © 2026 - All rights reserved
+            CBT v3 © 2026 - Semua hak dilindungi
         </p>
     </div>
 </body>

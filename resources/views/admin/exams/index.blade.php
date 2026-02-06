@@ -1,18 +1,18 @@
 @extends('layouts.admin')
 
-@section('title', 'Exams')
-@section('page-title', 'Exam Management')
-@section('page-subtitle', 'Manage all exams and their settings')
+@section('title', 'Ujian')
+@section('page-title', 'Manajemen Ujian')
+@section('page-subtitle', 'Kelola semua ujian dan pengaturannya')
 
 @section('content')
 <div class="row">
     <div class="col-12">
         <div class="card card-primary card-outline">
             <div class="card-header">
-                <h3 class="card-title">Exams List</h3>
+                <h3 class="card-title">Daftar Ujian</h3>
                 <div class="card-tools">
                     <a href="{{ route('admin.exams.create') }}" class="btn btn-primary btn-sm">
-                        <i class="fas fa-plus"></i> New Exam
+                        <i class="fas fa-plus"></i> Ujian Baru
                     </a>
                 </div>
             </div>
@@ -21,19 +21,19 @@
                 <!-- Filters -->
                 <form method="GET" action="{{ route('admin.exams.index') }}" class="form-inline mb-3">
                     <div class="form-group mr-2">
-                        <input type="text" name="search" placeholder="Search exam..." value="{{ request('search') }}" class="form-control form-control-sm">
+                        <input type="text" name="search" placeholder="Cari ujian..." value="{{ request('search') }}" class="form-control form-control-sm">
                     </div>
                     <div class="form-group mr-2">
                         <select name="type" class="form-control form-control-sm">
-                            <option value="">All Types</option>
-                            <option value="test" {{ request('type') === 'test' ? 'selected' : '' }}>Test</option>
-                            <option value="quiz" {{ request('type') === 'quiz' ? 'selected' : '' }}>Quiz</option>
-                            <option value="assignment" {{ request('type') === 'assignment' ? 'selected' : '' }}>Assignment</option>
-                            <option value="final_exam" {{ request('type') === 'final_exam' ? 'selected' : '' }}>Final Exam</option>
+                            <option value="">Semua Tipe</option>
+                            <option value="test" {{ request('type') === 'test' ? 'selected' : '' }}>Tes</option>
+                            <option value="quiz" {{ request('type') === 'quiz' ? 'selected' : '' }}>Kuis</option>
+                            <option value="assignment" {{ request('type') === 'assignment' ? 'selected' : '' }}>Tugas</option>
+                            <option value="final_exam" {{ request('type') === 'final_exam' ? 'selected' : '' }}>Ujian Akhir</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-default btn-sm">
-                        <i class="fas fa-search"></i> Search
+                        <i class="fas fa-search"></i> Cari
                     </button>
                 </form>
 
@@ -42,13 +42,13 @@
                     <table class="table table-striped table-hover table-sm">
                         <thead class="bg-light">
                             <tr>
-                                <th style="width: 25%">Exam Name</th>
-                                <th style="width: 10%">Type</th>
+                                <th style="width: 25%">Nama Ujian</th>
+                                <th style="width: 10%">Tipe</th>
                                 <th style="width: 10%">Jenjang</th>
-                                <th style="width: 8%">Duration</th>
+                                <th style="width: 8%">Durasi</th>
                                 <th style="width: 10%">Status</th>
-                                <th style="width: 15%">Created By</th>
-                                <th style="width: 12%" class="text-center">Actions</th>
+                                <th style="width: 15%">Dibuat Oleh</th>
+                                <th style="width: 12%" class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -63,23 +63,23 @@
                                         <span class="badge badge-info">{{ ucfirst($exam->exam_type) }}</span>
                                     </td>
                                     <td>{{ $exam->jenjang ?? '-' }}</td>
-                                    <td>{{ $exam->duration }} min</td>
+                                    <td>{{ $exam->duration }} menit</td>
                                     <td>
                                         @if ($exam->is_published)
-                                            <span class="badge badge-success">Published</span>
+                                            <span class="badge badge-success">Terpublikasi</span>
                                         @else
                                             <span class="badge badge-secondary">Draft</span>
                                         @endif
                                     </td>
                                     <td><small>{{ $exam->creator?->name ?? '-' }}</small></td>
                                     <td class="text-center">
-                                        <a href="{{ route('admin.exams.show', $exam->id) }}" class="btn btn-info btn-xs" title="View">
+                                        <a href="{{ route('admin.exams.show', $exam->id) }}" class="btn btn-info btn-xs" title="Lihat">
                                             <i class="fas fa-eye"></i>
                                         </a>
                                         <a href="{{ route('admin.exams.edit', $exam->id) }}" class="btn btn-warning btn-xs" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <button class="btn btn-danger btn-xs" onclick="return confirmDelete('{{ route('admin.exams.destroy', $exam->id) }}', 'Delete this exam?')" title="Delete">
+                                        <button class="btn btn-danger btn-xs" onclick="return confirmDelete('{{ route('admin.exams.destroy', $exam->id) }}', 'Hapus ujian ini?')" title="Hapus">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </td>
@@ -87,7 +87,7 @@
                             @empty
                                 <tr>
                                     <td colspan="7" class="text-center text-muted py-4">
-                                        <i class="fas fa-inbox mr-2"></i> No exams found
+                                        <i class="fas fa-inbox mr-2"></i> Tidak ada ujian ditemukan
                                     </td>
                                 </tr>
                             @endforelse

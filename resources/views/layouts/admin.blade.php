@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'CBT v3 Admin') - CBT System</title>
+    <title>@yield('title', 'Admin CBT v3') - Sistem CBT</title>
 
     <!-- AdminLTE CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
@@ -141,13 +141,13 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a href="#" class="dropdown-item">
-                                <i class="fas fa-user mr-2"></i> Profile
+                                <i class="fas fa-user mr-2"></i> Profil
                             </a>
                             <div class="dropdown-divider"></div>
                             <form method="POST" action="{{ route('logout') }}" style="display: inline;">
                                 @csrf
                                 <button type="submit" class="dropdown-item" style="border: none; background: none; cursor: pointer;">
-                                    <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                                    <i class="fas fa-sign-out-alt mr-2"></i> Keluar
                                 </button>
                             </form>
                         </div>
@@ -180,29 +180,29 @@
                         <li class="nav-item">
                             <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>Dashboard</p>
+                                <p>Dasbor</p>
                             </a>
                         </li>
 
                         <!-- Exam Management -->
-                        <li class="nav-header">Management</li>
+                        <li class="nav-header">Manajemen</li>
 
                         <li class="nav-item {{ request()->routeIs('admin.exams.*') ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link {{ request()->routeIs('admin.exams.*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-file-alt"></i>
-                                <p>Exams <i class="right fas fa-angle-left"></i></p>
+                                <p>Ujian <i class="right fas fa-angle-left"></i></p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ route('admin.exams.index') }}" class="nav-link {{ request()->routeIs('admin.exams.index') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>All Exams</p>
+                                        <p>Semua Ujian</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ route('admin.exams.create') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Create Exam</p>
+                                        <p>Buat Ujian</p>
                                     </a>
                                 </li>
                             </ul>
@@ -211,55 +211,55 @@
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-question-circle"></i>
-                                <p>Questions <i class="right fas fa-angle-left"></i></p>
+                                <p>Pertanyaan <i class="right fas fa-angle-left"></i></p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Question Groups</p>
+                                        <p>Grup Pertanyaan</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>All Questions</p>
+                                        <p>Semua Pertanyaan</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
 
                         <!-- Settings -->
-                        <li class="nav-header">Settings</li>
+                        <li class="nav-header">Pengaturan</li>
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-mobile-alt"></i>
-                                <p>Mobile Settings</p>
+                                <p>Pengaturan Mobile</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-users-cog"></i>
-                                <p>Users</p>
+                                <p>Pengguna</p>
                             </a>
                         </li>
 
                         <!-- Reports -->
-                        <li class="nav-header">Reports</li>
+                        <li class="nav-header">Laporan</li>
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-chart-bar"></i>
-                                <p>Analytics</p>
+                                <p>Analitik</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-book"></i>
-                                <p>Activity Logs</p>
+                                <p>Log Aktivitas</p>
                             </a>
                         </li>
                     </ul>
@@ -273,7 +273,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">@yield('page-title', 'Dashboard')</h1>
+                            <h1 class="m-0">@yield('page-title', 'Dasbor')</h1>
                         </div>
                         <div class="col-sm-6 text-right">
                             <small class="text-muted">@yield('page-subtitle')</small>
@@ -290,7 +290,7 @@
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="alert-heading">Error!</h4>
+                            <h4 class="alert-heading">Kesalahan!</h4>
                             <ul class="mb-0">
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
