@@ -6,8 +6,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Admin CBT v3') - Sistem CBT</title>
 
-    <!-- AdminLTE CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Toastr CSS -->
@@ -17,373 +17,623 @@
 
     <style>
         :root {
+            --primary-color: #5e72e4;
+            --secondary-color: #6c757d;
+            --success-color: #2dce89;
+            --danger-color: #f5365c;
+            --warning-color: #fb6340;
+            --info-color: #11cdef;
+            --light-bg: #f7fafc;
+            --border-color: #e9ecef;
             --main-font-size: 13px;
             --small-font-size: 12px;
-            --large-font-size: 14px;
         }
 
         * {
             font-size: var(--main-font-size);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        h1 { font-size: 1.8rem !important; }
-        h2 { font-size: 1.6rem !important; }
-        h3 { font-size: 1.4rem !important; }
-        h4 { font-size: 1.2rem !important; }
-        h5 { font-size: 1.1rem !important; }
-        h6 { font-size: 1rem !important; }
-
-        .main-sidebar {
-            font-size: 13px;
+        body {
+            background-color: var(--light-bg);
+            color: #2c3e50;
         }
 
-        .sidebar-brand {
-            padding: 0.8rem 0.5rem;
+        /* Navbar Styling */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #4c63d2 100%);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 0.75rem 1.5rem;
         }
 
-        .nav-treeview > .nav-item > .nav-link {
-            padding: 0.5rem 1rem;
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: white !important;
         }
 
-        .content-header {
-            padding: 0.5rem 0.5rem;
+        .navbar .nav-link {
+            color: rgba(255, 255, 255, 0.85) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            transition: all 0.3s ease;
         }
 
-        .content-wrapper {
-            padding: 0.5rem;
+        .navbar .nav-link:hover {
+            color: white !important;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
         }
 
-        .card {
-            margin-bottom: 0.8rem;
+        /* Sidebar Styling */
+        .sidebar {
+            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+            min-height: 100vh;
+            padding-top: 1rem;
+            position: fixed;
+            width: 250px;
+            left: 0;
+            top: 0;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
         }
 
-        .card-header {
-            padding: 0.5rem 0.75rem;
-            font-size: 13px;
+        .sidebar-logo {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1rem;
         }
 
-        .card-body {
-            padding: 0.75rem;
+        .sidebar-logo .brand-text {
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: block;
         }
 
-        .btn {
-            font-size: 12px;
-            padding: 0.35rem 0.65rem;
-        }
-
-        .btn-sm {
-            padding: 0.25rem 0.5rem;
-        }
-
-        .table {
-            font-size: 12px;
+        .sidebar-logo .brand-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
             margin-bottom: 0.5rem;
         }
 
-        .table th {
-            padding: 0.4rem;
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.75);
+            padding: 0.65rem 1.25rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
         }
 
-        .table td {
-            padding: 0.4rem;
+        .sidebar .nav-link:hover {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left-color: var(--primary-color);
         }
 
-        .input-group-sm > .form-control,
-        .input-group-sm > .form-select {
+        .sidebar .nav-link.active {
+            color: white;
+            background-color: var(--primary-color);
+            border-left-color: white;
+        }
+
+        .sidebar .nav-item.menu-open > .nav-link {
+            color: white;
+            background-color: rgba(94, 114, 228, 0.2);
+        }
+
+        .sidebar .nav-item .nav-icon {
+            width: 1.5rem;
+            margin-right: 0.75rem;
+            text-align: center;
+        }
+
+        .sidebar .nav-header {
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 700;
+            font-size: 11px;
+            text-transform: uppercase;
+            padding: 1rem 1.25rem 0.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar .nav-treeview {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar .nav-treeview .nav-link {
+            padding-left: 2.5rem;
             font-size: 12px;
         }
 
-        .form-control, .form-select {
+        /* Content Area */
+        .main-content {
+            margin-left: 250px;
+            padding: 1.5rem;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .page-title {
+            color: #2c3e50;
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .page-subtitle {
+            color: #7f8c8d;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Card Styling */
+        .card {
+            border: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            margin-bottom: 1.5rem;
+            border-radius: 6px;
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-header {
+            background-color: var(--light-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 1.25rem;
+            border-radius: 6px 6px 0 0;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .card-header .card-title {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .card-body {
+            padding: 1.25rem;
+        }
+
+        .card-footer {
+            background-color: var(--light-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 1rem;
+        }
+
+        /* Form Styling */
+        .form-label {
+            font-weight: 600;
+            color: #2c3e50;
             font-size: 13px;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control, .form-select {
+            border-color: var(--border-color);
+            border-radius: 4px;
+            font-size: 13px;
+            padding: 0.5rem 0.75rem;
+            height: auto;
+            line-height: 1.5;
+            transition: all 0.2s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(94, 114, 228, 0.1);
+        }
+
+        .form-control.is-invalid, .form-select.is-invalid {
+            border-color: var(--danger-color);
+        }
+
+        .invalid-feedback {
+            font-size: 12px;
+            color: var(--danger-color);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        /* Button Styling */
+        .btn {
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            font-size: 13px;
+            border-radius: 4px;
+            border: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #4c63d2;
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(94, 114, 228, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            color: white;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .btn-info {
+            background-color: var(--info-color);
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 0.35rem 0.65rem;
+            font-size: 12px;
+        }
+
+        .btn-xs {
+            padding: 0.25rem 0.5rem;
+            font-size: 11px;
+        }
+
+        /* Table Styling */
+        .table {
+            font-size: 12px;
+            margin-bottom: 0;
+        }
+
+        .table thead th {
+            background-color: var(--light-bg);
+            border-color: var(--border-color);
+            font-weight: 600;
+            color: #2c3e50;
+            padding: 0.75rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .table td {
+            padding: 0.75rem;
+            border-color: var(--border-color);
+            vertical-align: middle;
+        }
+
+        .table tbody tr:hover {
+            background-color: var(--light-bg);
+        }
+
+        /* Badge Styling */
+        .badge {
             padding: 0.4rem 0.6rem;
-            height: calc(1.5em + 0.8rem + 2px);
+            font-weight: 600;
+            font-size: 11px;
+            border-radius: 3px;
         }
 
-        .navbar-nav .nav-link {
-            padding: 0.5rem;
+        .badge-primary {
+            background-color: var(--primary-color);
         }
 
-        .user-panel {
-            padding: 0.8rem;
+        .badge-success {
+            background-color: var(--success-color);
         }
 
-        .user-panel > .info {
-            padding: 0.5rem 0;
+        .badge-danger {
+            background-color: var(--danger-color);
+        }
+
+        .badge-warning {
+            background-color: var(--warning-color);
+        }
+
+        .badge-info {
+            background-color: var(--info-color);
+        }
+
+        /* Alert Styling */
+        .alert {
+            border: none;
+            border-radius: 4px;
+            padding: 0.75rem 1rem;
+            font-size: 13px;
+        }
+
+        .alert-danger {
+            background-color: rgba(245, 54, 92, 0.1);
+            color: var(--danger-color);
+            border-left: 4px solid var(--danger-color);
+        }
+
+        .alert-success {
+            background-color: rgba(45, 206, 137, 0.1);
+            color: var(--success-color);
+            border-left: 4px solid var(--success-color);
+        }
+
+        .alert-warning {
+            background-color: rgba(251, 99, 64, 0.1);
+            color: var(--warning-color);
+            border-left: 4px solid var(--warning-color);
+        }
+
+        .alert-info {
+            background-color: rgba(17, 205, 239, 0.1);
+            color: var(--info-color);
+            border-left: 4px solid var(--info-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                box-shadow: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Smooth scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #bdc3c7;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #95a5a6;
         }
     </style>
 
     @stack('styles')
 </head>
-<body class="layout-fixed layout-navbar-fixed layout-footer-fixed">
-    <div class="wrapper">
+<body>
+    <div class="container-fluid p-0">
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                </li>
-            </ul>
-
-            <div class="navbar-custom-menu ml-auto">
-                <ul class="nav navbar-nav">
-                    <!-- Notifications Dropdown -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" data-toggle="dropdown" href="#">
-                            <i class="far fa-bell"></i>
-                            <span class="badge badge-danger navbar-badge">3</span>
-                        </a>
-                    </li>
-
-                    <!-- User Dropdown -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" data-toggle="dropdown" href="#">
-                            <i class="fas fa-user-circle"></i> {{ Auth::user()->name }}
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a href="#" class="dropdown-item">
-                                <i class="fas fa-user mr-2"></i> Profil
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid px-3">
+                <a class="navbar-brand" href="{{ route('admin.dashboard') }}">
+                    <i class="fas fa-laptop me-2"></i>CBT v3
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <span class="nav-link">
+                                <i class="fas fa-user-circle me-1"></i> {{ Auth::user()->name }}
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            <form method="POST" action="{{ route('logout') }}" class="d-inline">
                                 @csrf
-                                <button type="submit" class="dropdown-item" style="border: none; background: none; cursor: pointer;">
-                                    <i class="fas fa-sign-out-alt mr-2"></i> Keluar
+                                <button type="submit" class="btn btn-sm btn-outline-light">
+                                    <i class="fas fa-sign-out-alt me-1"></i> Keluar
                                 </button>
                             </form>
-                        </div>
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
 
-        <!-- Sidebar -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <a href="{{ route('admin.dashboard') }}" class="brand-link">
-                <i class="fas fa-laptop brand-image img-circle elevation-3" style="color: #ffc107;"></i>
-                <span class="brand-text font-weight-light">CBT v3</span>
-            </a>
-
+        <div class="d-flex">
+            <!-- Sidebar -->
             <div class="sidebar">
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <i class="fas fa-user-circle img-circle elevation-2" style="font-size: 2.5rem; color: #ffc107;"></i>
+                <div class="sidebar-logo">
+                    <div class="brand-icon">
+                        <i class="fas fa-cogs"></i>
                     </div>
-                    <div class="info">
-                        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
-                        <small class="text-muted">Admin</small>
-                    </div>
+                    <span class="brand-text">Admin Panel</span>
                 </div>
 
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
-                        <!-- Dashboard -->
-                        <li class="nav-item">
-                            <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>Dasbor</p>
-                            </a>
-                        </li>
+                <nav class="nav flex-column">
+                    <!-- Dashboard -->
+                    <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                        <i class="fas fa-chart-line nav-icon"></i>
+                        <span>Dasbor</span>
+                    </a>
 
-                        <!-- Exam Management -->
-                        <li class="nav-header">Manajemen</li>
+                    <!-- Management Header -->
+                    <div class="nav-header">Manajemen</div>
 
-                        <li class="nav-item {{ request()->routeIs('admin.exams.*') ? 'menu-open' : '' }}">
-                            <a href="#" class="nav-link {{ request()->routeIs('admin.exams.*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-file-alt"></i>
-                                <p>Ujian <i class="right fas fa-angle-left"></i></p>
-                            </a>
+                    <!-- Exams -->
+                    <div class="nav-item {{ request()->routeIs('admin.exams.*') ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ request()->routeIs('admin.exams.*') ? 'active' : '' }}" data-bs-toggle="collapse" data-bs-target="#examsMenu">
+                            <i class="fas fa-file-alt nav-icon"></i>
+                            <span>Ujian</span>
+                            <i class="fas fa-chevron-right ms-auto" style="font-size: 10px;"></i>
+                        </a>
+                        <div class="collapse {{ request()->routeIs('admin.exams.*') ? 'show' : '' }}" id="examsMenu">
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ route('admin.exams.index') }}" class="nav-link {{ request()->routeIs('admin.exams.index') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Semua Ujian</p>
+                                        <i class="fas fa-circle nav-icon"></i>
+                                        <span>Semua Ujian</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ route('admin.exams.create') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Buat Ujian</p>
+                                        <i class="fas fa-circle nav-icon"></i>
+                                        <span>Buat Ujian</span>
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </div>
+                    </div>
 
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-question-circle"></i>
-                                <p>Pertanyaan <i class="right fas fa-angle-left"></i></p>
-                            </a>
+                    <!-- Questions -->
+                    <div class="nav-item">
+                        <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#questionsMenu">
+                            <i class="fas fa-question-circle nav-icon"></i>
+                            <span>Pertanyaan</span>
+                            <i class="fas fa-chevron-right ms-auto" style="font-size: 10px;"></i>
+                        </a>
+                        <div class="collapse" id="questionsMenu">
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Grup Pertanyaan</p>
+                                        <i class="fas fa-circle nav-icon"></i>
+                                        <span>Grup Pertanyaan</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Semua Pertanyaan</p>
+                                        <i class="fas fa-circle nav-icon"></i>
+                                        <span>Semua Pertanyaan</span>
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </div>
+                    </div>
 
-                        <!-- Settings -->
-                        <li class="nav-header">Pengaturan</li>
+                    <!-- Settings Header -->
+                    <div class="nav-header mt-3">Pengaturan</div>
 
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-mobile-alt"></i>
-                                <p>Pengaturan Mobile</p>
-                            </a>
-                        </li>
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-mobile-alt nav-icon"></i>
+                        <span>Mobile Settings</span>
+                    </a>
 
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-users-cog"></i>
-                                <p>Pengguna</p>
-                            </a>
-                        </li>
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-users-cog nav-icon"></i>
+                        <span>Pengguna</span>
+                    </a>
 
-                        <!-- Reports -->
-                        <li class="nav-header">Laporan</li>
+                    <!-- Reports Header -->
+                    <div class="nav-header mt-3">Laporan</div>
 
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-chart-bar"></i>
-                                <p>Analitik</p>
-                            </a>
-                        </li>
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-chart-bar nav-icon"></i>
+                        <span>Analitik</span>
+                    </a>
 
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-book"></i>
-                                <p>Log Aktivitas</p>
-                            </a>
-                        </li>
-                    </ul>
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-book nav-icon"></i>
+                        <span>Log Aktivitas</span>
+                    </a>
                 </nav>
             </div>
-        </aside>
 
-        <!-- Content Wrapper -->
-        <div class="content-wrapper">
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0">@yield('page-title', 'Dasbor')</h1>
-                        </div>
-                        <div class="col-sm-6 text-right">
-                            <small class="text-muted">@yield('page-subtitle')</small>
+            <!-- Main Content -->
+            <div class="main-content flex-grow-1">
+                @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong><i class="fas fa-exclamation-circle me-2"></i>Terjadi Kesalahan!</strong>
+                        <ul class="mb-0 mt-2">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                @endif
+
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                @endif
+
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h1 class="page-title">@yield('page-title', 'Dasbor')</h1>
+                            <p class="page-subtitle">@yield('page-subtitle')</p>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="content">
-                <div class="container-fluid">
-                    <!-- Alerts -->
-                    @if ($errors->any())
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="alert-heading">Kesalahan!</h4>
-                            <ul class="mb-0">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    @if (session('success'))
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function() {
-                                toastr.success("{{ session('success') }}", "Success");
-                            });
-                        </script>
-                    @endif
-
-                    @yield('content')
-                </div>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <footer class="main-footer">
-            <div class="float-right d-none d-sm-inline">
-                <b>Version</b> 1.0.0
-            </div>
-            <strong>CBT v3</strong> - Computer-Based Testing System. All rights reserved.
-        </footer>
-    </div>
-
-    <!-- Modal Confirm -->
-    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmModalLabel">Confirm Action</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="confirmMessage">
-                    Are you sure?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger btn-sm" id="confirmBtn">Delete</button>
-                </div>
+                <!-- Page Content -->
+                @yield('content')
             </div>
         </div>
     </div>
 
-    <!-- jQuery -->
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery (untuk kompatibilitas) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Bootstrap Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE JS -->
-    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
     <!-- Toastr JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <!-- SweetAlert2 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        // Toastr config
+        // Toastr configuration
         toastr.options = {
-            closeButton: true,
-            progressBar: true,
-            positionClass: "toast-top-right",
+            positionClass: 'toast-top-right',
             timeOut: 4000,
-            extendedTimeOut: 1000,
+            progressBar: true,
+            preventDuplicates: true,
         };
 
-        // Confirm delete function
-        function confirmDelete(url, message = "Are you sure you want to delete this item?") {
+        // Global confirm delete function
+        function confirmDelete(url, message = 'Apakah Anda yakin ingin menghapus?') {
             Swal.fire({
-                title: 'Are you sure?',
+                title: 'Konfirmasi',
                 text: message,
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#dc3545',
+                confirmButtonColor: '#f5365c',
                 cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'Cancel'
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Create form and submit
                     const form = document.createElement('form');
                     form.method = 'POST';
                     form.action = url;
-                    form.innerHTML = `
-                        @csrf
-                        <input type="hidden" name="_method" value="DELETE">
-                    `;
+                    form.innerHTML = '@csrf <input type="hidden" name="_method" value="DELETE">';
                     document.body.appendChild(form);
                     form.submit();
                 }
@@ -391,19 +641,20 @@
             return false;
         }
 
-        // Success message
-        function showSuccess(message = "Action completed successfully!") {
-            toastr.success(message, "Success");
+        function showSuccess(message) {
+            toastr.success(message);
         }
 
-        // Error message
-        function showError(message = "An error occurred!") {
-            toastr.error(message, "Error");
+        function showError(message) {
+            toastr.error(message);
         }
 
-        // Info message
-        function showInfo(message = "Information") {
-            toastr.info(message, "Info");
+        function showInfo(message) {
+            toastr.info(message);
+        }
+
+        function showWarning(message) {
+            toastr.warning(message);
         }
     </script>
 
