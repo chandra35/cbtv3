@@ -7,11 +7,9 @@
     <title>@yield('title', 'Admin CBT v3') - Sistem CBT</title>
 
     <!-- AdminLTE 4 CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/4.0.0-beta2/adminlte.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@4.0.0-rc/dist/css/adminlte.min.css">
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <!-- SweetAlert2 CSS -->
@@ -20,171 +18,91 @@
     <style>
         body {
             font-size: 13px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        .main-header {
-            background: linear-gradient(90deg, #007bff 0%, #0056b3 100%);
-            border-bottom: 1px solid #dee2e6;
-        }
-
-        .navbar {
-            padding: 0.5rem 1rem;
-        }
-
-        .brand-text {
-            font-weight: 700;
-            font-size: 1.25rem;
-        }
-
-        .sidebar {
-            background-color: #2c3e50;
-            padding-top: 0.5rem;
-        }
-
-        .sidebar-dark .nav-sidebar > .nav-item > .nav-link.active {
-            background-color: #007bff;
-            border-left: 4px solid #fff;
-        }
-
-        .sidebar-dark .nav-sidebar .nav-header {
-            color: rgba(255,255,255,0.6);
-            font-weight: 700;
-            font-size: 11px;
-            text-transform: uppercase;
-        }
-
-        .content-wrapper {
-            background-color: #ecf0f5;
-        }
-
-        .card {
-            border: none;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-        }
-
-        .card-header {
-            background-color: #f8f9fa;
-            border-bottom: 1px solid #dee2e6;
-            font-weight: 600;
-        }
-
-        .table {
-            font-size: 13px;
-        }
-
-        .table th {
-            background-color: #f8f9fa;
-            font-weight: 600;
-            border-bottom: 2px solid #dee2e6;
-            padding: 0.75rem;
-        }
-
-        .form-control, .form-select, .form-check-input {
-            font-size: 13px;
-        }
-
-        .form-control:focus, .form-select:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-        }
-
-        .btn {
-            font-weight: 600;
-            font-size: 13px;
-        }
-
-        .btn-sm {
-            font-size: 12px;
-        }
-
-        .small-box {
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-        }
-
-        .main-footer {
-            background-color: #fff;
-            border-top: 1px solid #dee2e6;
-            padding: 1rem;
-            font-size: 12px;
         }
     </style>
 
     @stack('styles')
 </head>
-<body class="layout-fixed sidebar-mini">
-    <div class="wrapper">
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    <div class="app-wrapper">
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-light">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button">
-                        <i class="fas fa-bars"></i>
-                    </a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('admin.dashboard') }}" class="nav-link">
-                        <i class="fas fa-home"></i> Home
-                    </a>
-                </li>
-            </ul>
+        <nav class="app-header navbar navbar-expand bg-body">
+            <div class="container-fluid">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
+                            <i class="bi bi-list"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item d-none d-md-block">
+                        <a href="{{ route('admin.dashboard') }}" class="nav-link">
+                            <i class="bi bi-house-fill me-2"></i> Home
+                        </a>
+                    </li>
+                </ul>
 
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="fas fa-user-circle"></i> {{ Auth::user()->name }}
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <form method="POST" action="{{ route('logout') }}" style="display: inline;">
-                            @csrf
-                            <button type="submit" class="dropdown-item">
-                                <i class="fas fa-sign-out-alt"></i> Keluar
-                            </button>
-                        </form>
-                    </div>
-                </li>
-            </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown user-menu">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i>
+                            <span class="d-none d-md-inline ms-2">{{ Auth::user()->name }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li class="dropdown-header">{{ Auth::user()->name }}</li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item">
+                                        <i class="bi bi-box-arrow-right me-2"></i> Keluar
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </nav>
 
         <!-- Sidebar -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <a href="{{ route('admin.dashboard') }}" class="brand-link">
-                <i class="fas fa-laptop brand-image elevation-3" style="opacity: 1;"></i>
-                <span class="brand-text">CBT v3</span>
-            </a>
+        <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
+            <div class="sidebar-brand">
+                <a href="{{ route('admin.dashboard') }}" class="brand-link">
+                    <i class="bi bi-laptop brand-image" style="opacity: 0.8; margin-right: 10px;"></i>
+                    <span class="brand-text fw-light">CBT v3</span>
+                </a>
+            </div>
 
-            <div class="sidebar">
+            <div class="sidebar-wrapper">
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
+                    <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="navigation" data-accordion="false">
                         <!-- Dashboard -->
                         <li class="nav-item">
                             <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <i class="nav-icon bi bi-speedometer2"></i>
                                 <p>Dasbor</p>
                             </a>
                         </li>
 
-                        <!-- Management Section -->
+                        <!-- Management -->
                         <li class="nav-header">MANAJEMEN</li>
 
                         <!-- Exams -->
-                        <li class="nav-item {{ request()->routeIs('admin.exams.*') ? 'menu-is-opening menu-open' : '' }}">
+                        <li class="nav-item {{ request()->routeIs('admin.exams.*') ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link {{ request()->routeIs('admin.exams.*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-file-alt"></i>
-                                <p>Ujian <i class="right fas fa-angle-left"></i></p>
+                                <i class="nav-icon bi bi-file-text"></i>
+                                <p>Ujian <i class="nav-arrow bi bi-chevron-right"></i></p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ route('admin.exams.index') }}" class="nav-link {{ request()->routeIs('admin.exams.index') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="nav-icon bi bi-circle"></i>
                                         <p>Semua Ujian</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ route('admin.exams.create') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="nav-icon bi bi-circle"></i>
                                         <p>Buat Ujian</p>
                                     </a>
                                 </li>
@@ -194,55 +112,55 @@
                         <!-- Questions -->
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-question-circle"></i>
-                                <p>Pertanyaan <i class="right fas fa-angle-left"></i></p>
+                                <i class="nav-icon bi bi-question-circle"></i>
+                                <p>Pertanyaan <i class="nav-arrow bi bi-chevron-right"></i></p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="nav-icon bi bi-circle"></i>
                                         <p>Grup Pertanyaan</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="nav-icon bi bi-circle"></i>
                                         <p>Semua Pertanyaan</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
 
-                        <!-- Settings Section -->
+                        <!-- Settings -->
                         <li class="nav-header">PENGATURAN</li>
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-mobile-alt"></i>
+                                <i class="nav-icon bi bi-gear"></i>
                                 <p>Mobile Settings</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-users"></i>
+                                <i class="nav-icon bi bi-people"></i>
                                 <p>Pengguna</p>
                             </a>
                         </li>
 
-                        <!-- Reports Section -->
+                        <!-- Reports -->
                         <li class="nav-header">LAPORAN</li>
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-chart-bar"></i>
+                                <i class="nav-icon bi bi-bar-chart"></i>
                                 <p>Analitik</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-book"></i>
+                                <i class="nav-icon bi bi-book"></i>
                                 <p>Log Aktivitas</p>
                             </a>
                         </li>
@@ -251,17 +169,16 @@
             </div>
         </aside>
 
-        <!-- Content Wrapper -->
-        <div class="content-wrapper">
-            <!-- Content Header -->
-            <div class="content-header">
+        <!-- Content -->
+        <main class="app-main">
+            <div class="app-content-header">
                 <div class="container-fluid">
-                    <div class="row mb-2">
+                    <div class="row">
                         <div class="col-sm-6">
-                            <h1 class="m-0">@yield('page-title', 'Dasbor')</h1>
+                            <h3 class="mb-0">@yield('page-title', 'Dasbor')</h3>
                         </div>
                         <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
+                            <ol class="breadcrumb float-sm-end">
                                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
                                 <li class="breadcrumb-item active">@yield('page-title', 'Dasbor')</li>
                             </ol>
@@ -270,27 +187,26 @@
                 </div>
             </div>
 
-            <!-- Main Content -->
-            <div class="content">
+            <div class="app-content">
                 <div class="container-fluid">
                     <!-- Error Messages -->
                     @if ($errors->any())
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>Terjadi Kesalahan!</strong>
+                            <strong><i class="bi bi-exclamation-circle me-2"></i>Terjadi Kesalahan!</strong>
                             <ul class="mb-0 mt-2">
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
                                 @endforeach
                             </ul>
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         </div>
                     @endif
 
                     <!-- Success Messages -->
                     @if (session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <i class="fas fa-check-circle"></i> {{ session('success') }}
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         </div>
                     @endif
 
@@ -298,23 +214,27 @@
                     @yield('content')
                 </div>
             </div>
-        </div>
+        </main>
 
         <!-- Footer -->
-        <footer class="main-footer">
+        <footer class="app-footer">
             <strong>CBT v3</strong> - Sistem Computer-Based Testing
-            <div class="float-right d-none d-sm-inline-block">
+            <div class="float-end d-none d-sm-inline-block">
                 <b>Versi</b> 3.0
             </div>
         </footer>
     </div>
 
+    <!-- OverlayScrollbars -->
+    <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/browser/overlayscrollbars.browser.es6.min.js" crossorigin="anonymous"></script>
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <!-- AdminLTE JS -->
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@4.0.0-rc/dist/js/adminlte.js"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/4.0.0-beta2/adminlte.min.js"></script>
     <!-- Toastr JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <!-- SweetAlert2 JS -->
