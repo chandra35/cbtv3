@@ -28,8 +28,8 @@
             <!-- Navigation -->
             <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
                 <!-- Dashboard -->
-                <a href="{{ route('admin.exams.index') }}" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-all {{ request()->routeIs('admin.exams.*') ? 'sidebar-active' : '' }}">
-                    <i class="fas fa-chart-bar w-5"></i>
+                <a href="{{ route('admin.dashboard') }}" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-all {{ request()->routeIs('admin.dashboard') ? 'sidebar-active' : '' }}">
+                    <i class="fas fa-home w-5"></i>
                     <span class="ml-3">Dashboard</span>
                 </a>
 
@@ -37,14 +37,14 @@
                 <div class="pt-2">
                     <p class="px-4 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">Management</p>
                     
-                    <a href="{{ route('admin.exams.index') }}" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-all {{ request()->routeIs('admin.exams.index') ? 'sidebar-active' : '' }}">
-                        <i class="fas fa-list w-5"></i>
+                    <a href="{{ route('admin.exams.index') }}" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-all {{ request()->routeIs('admin.exams.*') ? 'sidebar-active' : '' }}">
+                        <i class="fas fa-file-alt w-5"></i>
                         <span class="ml-3">Exams</span>
                     </a>
 
                     <a href="#" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-all">
                         <i class="fas fa-question-circle w-5"></i>
-                        <span class="ml-3">Questions</span>
+                        <span class="ml-3">Question Groups</span>
                     </a>
 
                     <a href="#" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-all">
@@ -58,13 +58,13 @@
                     <p class="px-4 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">Settings</p>
                     
                     <a href="#" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-all">
-                        <i class="fas fa-lock w-5"></i>
+                        <i class="fas fa-mobile-alt w-5"></i>
                         <span class="ml-3">Mobile Settings</span>
                     </a>
 
                     <a href="#" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-all">
-                        <i class="fas fa-shield-alt w-5"></i>
-                        <span class="ml-3">Permissions</span>
+                        <i class="fas fa-users-cog w-5"></i>
+                        <span class="ml-3">User Management</span>
                     </a>
                 </div>
 
@@ -73,7 +73,7 @@
                     <p class="px-4 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">Monitoring</p>
                     
                     <a href="#" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-700 transition-all">
-                        <i class="fas fa-eye w-5"></i>
+                        <i class="fas fa-book w-5"></i>
                         <span class="ml-3">Activity Logs</span>
                     </a>
 
