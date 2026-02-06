@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\Admin\MobileAppSettingController;
 use App\Http\Controllers\Admin\QuestionImportController;
@@ -9,6 +10,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
+        // Dashboard
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
         // Exam management
         Route::resource('exams', ExamController::class);
         Route::post('exams/{exam}/publish', [ExamController::class, 'publish'])->name('exams.publish');
