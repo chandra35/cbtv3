@@ -1,8 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Dasbor')
 @section('page-title', 'Dasbor')
-@section('page-subtitle', "Selamat datang! Ini adalah ringkasan sistem ujian Anda")
 
 @section('content')
 <!-- Statistics Cards Row -->
