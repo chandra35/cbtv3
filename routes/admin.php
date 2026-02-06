@@ -8,7 +8,7 @@ use App\Http\Controllers\Admin\QuestionGroupController;
 use App\Http\Controllers\Admin\QuestionController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         // Dashboard
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
