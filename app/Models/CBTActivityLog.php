@@ -9,6 +9,8 @@ class CBTActivityLog extends Model
 {
     use HasFactory;
 
+    protected $table = 'cbtactivity_logs';
+
     const UPDATED_AT = null;
 
     protected $fillable = [
