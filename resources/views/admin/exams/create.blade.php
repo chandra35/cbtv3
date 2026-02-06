@@ -1,267 +1,277 @@
 @extends('layouts.admin')
-@section('title', 'Create Exam')
-@section('page-title', 'Create New Exam')
-@section('page-subtitle', 'Add a new exam to the system')
+@section('title', 'Buat Ujian')
+@section('page-title', 'Buat Ujian Baru')
+@section('page-subtitle', 'Tambahkan ujian baru ke sistem')
 
 @section('content')
-<div class="max-w-4xl mx-auto">
-    <div class="bg-white rounded-lg shadow-sm border border-gray-200">
-        <form action="{{ route('admin.exams.store') }}" method="POST" class="p-6">
-            @csrf
+<div class="row">
+    <div class="col-12">
+        <div class="card card-primary card-outline">
+            <form action="{{ route('admin.exams.store') }}" method="POST">
+                @csrf
 
-            <!-- Basic Information Section -->
-            <div class="mb-8">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                    <i class="fas fa-info-circle text-blue-500 mr-2"></i>
-                    Basic Information
-                </h3>
+                <!-- Basic Information Section -->
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-info-circle mr-2"></i>Informasi Dasar
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Exam Name -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exam_name">Nama Ujian <span class="text-danger">*</span></label>
+                                <input type="text" id="exam_name" name="exam_name" 
+                                    value="{{ old('exam_name') }}"
+                                    class="form-control @error('exam_name') is-invalid @enderror"
+                                    placeholder="Masukkan nama ujian" required>
+                                @error('exam_name')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Exam Name -->
-                    <div>
-                        <label for="exam_name" class="block text-sm font-medium text-gray-700 mb-2">
-                            Exam Name <span class="text-red-500">*</span>
-                        </label>
-                        <input type="text" id="exam_name" name="exam_name" 
-                            value="{{ old('exam_name') }}"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('exam_name') border-red-500 @enderror"
-                            placeholder="Enter exam name" required>
-                        @error('exam_name')
-                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                        @enderror
-                    </div>
+                        <!-- Exam Type -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exam_type">Tipe Ujian <span class="text-danger">*</span></label>
+                                <select id="exam_type" name="exam_type"
+                                    class="form-control @error('exam_type') is-invalid @enderror"
+                                    required>
+                                    <option value="">Pilih tipe ujian</option>
+                                    <option value="test" {{ old('exam_type') === 'test' ? 'selected' : '' }}>Tes</option>
+                                    <option value="quiz" {{ old('exam_type') === 'quiz' ? 'selected' : '' }}>Kuis</option>
+                                    <option value="assignment" {{ old('exam_type') === 'assignment' ? 'selected' : '' }}>Tugas</option>
+                                    <option value="final_exam" {{ old('exam_type') === 'final_exam' ? 'selected' : '' }}>Ujian Akhir</option>
+                                </select>
+                                @error('exam_type')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
 
-                    <!-- Exam Type -->
-                    <div>
-                        <label for="exam_type" class="block text-sm font-medium text-gray-700 mb-2">
-                            Exam Type <span class="text-red-500">*</span>
-                        </label>
-                        <select id="exam_type" name="exam_type"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('exam_type') border-red-500 @enderror"
-                            required>
-                            <option value="">Select exam type</option>
-                            <option value="test" {{ old('exam_type') === 'test' ? 'selected' : '' }}>Test</option>
-                            <option value="quiz" {{ old('exam_type') === 'quiz' ? 'selected' : '' }}>Quiz</option>
-                            <option value="assignment" {{ old('exam_type') === 'assignment' ? 'selected' : '' }}>Assignment</option>
-                            <option value="final_exam" {{ old('exam_type') === 'final_exam' ? 'selected' : '' }}>Final Exam</option>
-                        </select>
-                        @error('exam_type')
-                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                        @enderror
-                    </div>
+                        <!-- Jenjang -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="jenjang">Jenjang Pendidikan <span class="text-danger">*</span></label>
+                                <select id="jenjang" name="jenjang"
+                                    class="form-control @error('jenjang') is-invalid @enderror"
+                                    required>
+                                    <option value="">Pilih jenjang</option>
+                                    <option value="SD" {{ old('jenjang') === 'SD' ? 'selected' : '' }}>SD (Sekolah Dasar)</option>
+                                    <option value="SMP" {{ old('jenjang') === 'SMP' ? 'selected' : '' }}>SMP (Sekolah Menengah Pertama)</option>
+                                    <option value="SMA" {{ old('jenjang') === 'SMA' ? 'selected' : '' }}>SMA (Sekolah Menengah Atas)</option>
+                                    <option value="Madrasah" {{ old('jenjang') === 'Madrasah' ? 'selected' : '' }}>Madrasah</option>
+                                </select>
+                                @error('jenjang')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
 
-                    <!-- Jenjang -->
-                    <div>
-                        <label for="jenjang" class="block text-sm font-medium text-gray-700 mb-2">
-                            Education Level <span class="text-red-500">*</span>
-                        </label>
-                        <select id="jenjang" name="jenjang"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('jenjang') border-red-500 @enderror"
-                            required>
-                            <option value="">Select level</option>
-                            <option value="SD" {{ old('jenjang') === 'SD' ? 'selected' : '' }}>SD (Elementary)</option>
-                            <option value="SMP" {{ old('jenjang') === 'SMP' ? 'selected' : '' }}>SMP (Junior High)</option>
-                            <option value="SMA" {{ old('jenjang') === 'SMA' ? 'selected' : '' }}>SMA (Senior High)</option>
-                            <option value="Madrasah" {{ old('jenjang') === 'Madrasah' ? 'selected' : '' }}>Madrasah</option>
-                        </select>
-                        @error('jenjang')
-                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                        @enderror
-                    </div>
+                        <!-- Duration -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="duration">Durasi (menit) <span class="text-danger">*</span></label>
+                                <input type="number" id="duration" name="duration" 
+                                    value="{{ old('duration') }}"
+                                    class="form-control @error('duration') is-invalid @enderror"
+                                    placeholder="60" min="1" required>
+                                @error('duration')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
 
-                    <!-- Duration -->
-                    <div>
-                        <label for="duration" class="block text-sm font-medium text-gray-700 mb-2">
-                            Duration (minutes) <span class="text-red-500">*</span>
-                        </label>
-                        <input type="number" id="duration" name="duration" 
-                            value="{{ old('duration') }}"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('duration') border-red-500 @enderror"
-                            placeholder="60" min="1" required>
-                        @error('duration')
-                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                        @enderror
+                        <!-- Description -->
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="description">Deskripsi</label>
+                                <textarea id="description" name="description" 
+                                    class="form-control @error('description') is-invalid @enderror"
+                                    placeholder="Masukkan deskripsi ujian" rows="3">{{ old('description') }}</textarea>
+                                @error('description')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Description -->
-                <div class="mt-6">
-                    <label for="description" class="block text-sm font-medium text-gray-700 mb-2">
-                        Description
-                    </label>
-                    <textarea id="description" name="description" 
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('description') border-red-500 @enderror"
-                        placeholder="Enter exam description" rows="4">{{ old('description') }}</textarea>
-                    @error('description')
-                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                    @enderror
+                <!-- Scoring Section -->
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-chart-line mr-2"></i>Penilaian
+                    </h3>
                 </div>
-            </div>
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Passing Grade -->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="passing_grade">Nilai Lulus (%) <span class="text-danger">*</span></label>
+                                <input type="number" id="passing_grade" name="passing_grade" 
+                                    value="{{ old('passing_grade') }}"
+                                    class="form-control @error('passing_grade') is-invalid @enderror"
+                                    placeholder="70" min="0" max="100" step="0.01" required>
+                                @error('passing_grade')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
 
-            <hr class="my-8">
+                        <!-- Show Answers -->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="custom-control custom-checkbox mt-4">
+                                    <input type="checkbox" class="custom-control-input" id="show_answers" 
+                                        name="show_answers_after" value="1" 
+                                        {{ old('show_answers_after') ? 'checked' : '' }}>
+                                    <label class="custom-control-label" for="show_answers">
+                                        Tampilkan jawaban setelah selesai
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
 
-            <!-- Scoring Section -->
-            <div class="mb-8">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                    <i class="fas fa-chart-line text-green-500 mr-2"></i>
-                    Scoring
-                </h3>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Passing Grade -->
-                    <div>
-                        <label for="passing_grade" class="block text-sm font-medium text-gray-700 mb-2">
-                            Passing Grade (%) <span class="text-red-500">*</span>
-                        </label>
-                        <input type="number" id="passing_grade" name="passing_grade" 
-                            value="{{ old('passing_grade') }}"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('passing_grade') border-red-500 @enderror"
-                            placeholder="70" min="0" max="100" step="0.01" required>
-                        @error('passing_grade')
-                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                        @enderror
+                        <!-- Allow Review -->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="custom-control custom-checkbox mt-4">
+                                    <input type="checkbox" class="custom-control-input" id="allow_review" 
+                                        name="allow_review_before_submit" value="1"
+                                        {{ old('allow_review_before_submit') ? 'checked' : '' }}>
+                                    <label class="custom-control-label" for="allow_review">
+                                        Izinkan review sebelum kirim
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Show Answers -->
-                    <div class="flex items-end">
-                        <label class="flex items-center">
-                            <input type="checkbox" name="show_answers_after" value="1" 
-                                {{ old('show_answers_after') ? 'checked' : '' }}
-                                class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
-                            <span class="ml-2 text-sm text-gray-700">Show answers after completion</span>
-                        </label>
-                    </div>
+                    <!-- Messages -->
+                    <div class="row">
+                        <!-- Passing Message -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="passing_message">Pesan Lulus</label>
+                                <textarea id="passing_message" name="passing_message"
+                                    class="form-control @error('passing_message') is-invalid @enderror"
+                                    placeholder="Selamat! Anda lulus dalam ujian ini."
+                                    rows="3">{{ old('passing_message') }}</textarea>
+                                @error('passing_message')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
 
-                    <!-- Allow Review -->
-                    <div class="flex items-end">
-                        <label class="flex items-center">
-                            <input type="checkbox" name="allow_review_before_submit" value="1"
-                                {{ old('allow_review_before_submit') ? 'checked' : '' }}
-                                class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
-                            <span class="ml-2 text-sm text-gray-700">Allow review before submit</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Messages -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                    <!-- Passing Message -->
-                    <div>
-                        <label for="passing_message" class="block text-sm font-medium text-gray-700 mb-2">
-                            Message on Pass
-                        </label>
-                        <textarea id="passing_message" name="passing_message"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Congratulations! You passed the exam."
-                            rows="3">{{ old('passing_message') }}</textarea>
-                    </div>
-
-                    <!-- Failing Message -->
-                    <div>
-                        <label for="failing_message" class="block text-sm font-medium text-gray-700 mb-2">
-                            Message on Fail
-                        </label>
-                        <textarea id="failing_message" name="failing_message"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Unfortunately, you did not pass. Please try again."
-                            rows="3">{{ old('failing_message') }}</textarea>
-                    </div>
-                </div>
-            </div>
-
-            <hr class="my-8">
-
-            <!-- Scheduling Section -->
-            <div class="mb-8">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                    <i class="fas fa-calendar-alt text-purple-500 mr-2"></i>
-                    Schedule
-                </h3>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Start Date -->
-                    <div>
-                        <label for="start_date" class="block text-sm font-medium text-gray-700 mb-2">
-                            Start Date <span class="text-red-500">*</span>
-                        </label>
-                        <input type="date" id="start_date" name="start_date" 
-                            value="{{ old('start_date') }}"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('start_date') border-red-500 @enderror"
-                            required>
-                        @error('start_date')
-                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- End Date -->
-                    <div>
-                        <label for="end_date" class="block text-sm font-medium text-gray-700 mb-2">
-                            End Date <span class="text-red-500">*</span>
-                        </label>
-                        <input type="date" id="end_date" name="end_date" 
-                            value="{{ old('end_date') }}"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('end_date') border-red-500 @enderror"
-                            required>
-                        @error('end_date')
-                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Start Time -->
-                    <div>
-                        <label for="start_time" class="block text-sm font-medium text-gray-700 mb-2">
-                            Start Time <span class="text-red-500">*</span>
-                        </label>
-                        <input type="time" id="start_time" name="start_time" 
-                            value="{{ old('start_time') }}"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('start_time') border-red-500 @enderror"
-                            required>
-                        @error('start_time')
-                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- End Time -->
-                    <div>
-                        <label for="end_time" class="block text-sm font-medium text-gray-700 mb-2">
-                            End Time <span class="text-red-500">*</span>
-                        </label>
-                        <input type="time" id="end_time" name="end_time" 
-                            value="{{ old('end_time') }}"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('end_time') border-red-500 @enderror"
-                            required>
-                        @error('end_time')
-                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                        @enderror
+                        <!-- Failing Message -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="failing_message">Pesan Tidak Lulus</label>
+                                <textarea id="failing_message" name="failing_message"
+                                    class="form-control @error('failing_message') is-invalid @enderror"
+                                    placeholder="Maaf, Anda belum lulus. Silakan coba lagi."
+                                    rows="3">{{ old('failing_message') }}</textarea>
+                                @error('failing_message')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <hr class="my-8">
-
-            <!-- Publish Status -->
-            <div class="mb-8">
-                <div class="flex items-center">
-                    <label class="flex items-center">
-                        <input type="checkbox" name="is_published" value="1"
-                            {{ old('is_published') ? 'checked' : '' }}
-                            class="h-4 w-4 text-blue-500 border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
-                        <span class="ml-2 text-sm font-medium text-gray-700">Publish immediately</span>
-                    </label>
+                <!-- Scheduling Section -->
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-calendar-alt mr-2"></i>Jadwal
+                    </h3>
                 </div>
-                <p class="mt-2 text-sm text-gray-500">Leave unchecked to save as draft</p>
-            </div>
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Start Date -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="start_date">Tanggal Mulai <span class="text-danger">*</span></label>
+                                <input type="date" id="start_date" name="start_date" 
+                                    value="{{ old('start_date') }}"
+                                    class="form-control @error('start_date') is-invalid @enderror"
+                                    required>
+                                @error('start_date')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
 
-            <!-- Form Actions -->
-            <div class="flex gap-4">
-                <button type="submit" class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200 font-medium">
-                    <i class="fas fa-save mr-2"></i>Create Exam
-                </button>
-                <a href="{{ route('admin.exams.index') }}" class="px-6 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition duration-200 font-medium">
-                    <i class="fas fa-times mr-2"></i>Cancel
-                </a>
-            </div>
-        </form>
+                        <!-- End Date -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="end_date">Tanggal Selesai <span class="text-danger">*</span></label>
+                                <input type="date" id="end_date" name="end_date" 
+                                    value="{{ old('end_date') }}"
+                                    class="form-control @error('end_date') is-invalid @enderror"
+                                    required>
+                                @error('end_date')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <!-- Start Time -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="start_time">Waktu Mulai <span class="text-danger">*</span></label>
+                                <input type="time" id="start_time" name="start_time" 
+                                    value="{{ old('start_time') }}"
+                                    class="form-control @error('start_time') is-invalid @enderror"
+                                    required>
+                                @error('start_time')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <!-- End Time -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="end_time">Waktu Selesai <span class="text-danger">*</span></label>
+                                <input type="time" id="end_time" name="end_time" 
+                                    value="{{ old('end_time') }}"
+                                    class="form-control @error('end_time') is-invalid @enderror"
+                                    required>
+                                @error('end_time')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Publish Status -->
+                <div class="card-body border-top">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="is_published" 
+                            name="is_published" value="1"
+                            {{ old('is_published') ? 'checked' : '' }}>
+                        <label class="custom-control-label" for="is_published">
+                            Publikasikan langsung
+                        </label>
+                    </div>
+                    <small class="form-text text-muted d-block mt-2">Biarkan tidak dicentang untuk menyimpan sebagai draft</small>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save mr-2"></i>Buat Ujian
+                    </button>
+                    <a href="{{ route('admin.exams.index') }}" class="btn btn-secondary">
+                        <i class="fas fa-times mr-2"></i>Batal
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 @endsection
